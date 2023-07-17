@@ -1,10 +1,8 @@
 import React, {useState} from "react"
 import {
     View,
-    StyleSheet,
     SafeAreaView,
     FlatList,
-    LayoutAnimation,
     UIManager,
     Platform,
 } from "react-native"
@@ -24,7 +22,10 @@ import type RootPropType from "../../navigation/NavigationStackProps"
 
 // Component
 import MovieListItem from "./MovieListItem";
-import Loader from "../../components/Loader";
+import Loader from "../../components/atom/Loader";
+import useColor from "../../hooks/useColorStyle";
+import getCommonStyle from "../../utils/CommonStyle";
+import NetworkErrorView from "../../components/molecules/NetworkErrorView";
 
 type Props = NativeStackScreenProps<RootPropType, Routes.MovieList>
 
@@ -34,13 +35,14 @@ if(Platform.OS === 'android') {
 
 const MovieList = ({navigation}: Props): JSX.Element => {
 
+    const { Colours } = useColor();
     const [expandedIndex, setExpanded] = useState<number>(-1);
 
     const {data, error, loading} = useQuery(FILM_LIST_QUERY);
     const films: Film[] = _.get(data, "allFilms.films", []);
 
     const onListItemClick = (index: number): void => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         setExpanded(prevState => index === prevState ? -1 : index)
     };
 
@@ -68,23 +70,20 @@ const MovieList = ({navigation}: Props): JSX.Element => {
         )
     };
 
+    const renderError = (): JSX.Element => {
+        return (
+            <NetworkErrorView error={error?.message ?? ""}/>
+        )
+    };
+
     return (
-        <SafeAreaView style={style.safeArea}>
-            <View style={style.container}>
-                {renderFilmList()}
+        <SafeAreaView style={getCommonStyle(Colours).safeArea}>
+            <View style={getCommonStyle(Colours).container}>
+                {error ? renderError() : renderFilmList()}
             </View>
             <Loader visible={loading}/>
         </SafeAreaView>
     )
 };
-
-const style = StyleSheet.create({
-    safeArea: {
-        flex: 1
-    },
-    container: {
-        flex: 1
-    }
-});
 
 export default MovieList;

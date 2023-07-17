@@ -11,13 +11,14 @@ import {
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {useQuery} from "@apollo/client";
 import _ from "lodash"
+import { fromGlobalId } from 'graphql-relay';
 
 // Config
 import Routes from "../../navigation/Routes";
 import {FILE_DETAIL_QUERY} from "../../api/graphQuery/FilmQuery"
 
 // Component
-import Loader from "../../components/Loader";
+import Loader from "../../components/atom/Loader";
 
 // Types
 import RootPropType from "../../navigation/NavigationStackProps";
@@ -25,15 +26,22 @@ import {FilmDetail} from "../../types/film";
 
 // Utils
 import {px} from "../../utils/ScreenUtil";
+import useColor from "../../hooks/useColorStyle";
+import getCommonStyle from "../../utils/CommonStyle";
+import TextLabel from "../../components/atom/TextLabel";
+import String from "../../language/Strings";
+import NetworkErrorView from "../../components/molecules/NetworkErrorView";
 
 type Props = NativeStackScreenProps<RootPropType, Routes.MovieDetail>
 
 const MovieDetails = ({route} : Props): JSX.Element => {
 
+    const { Colours } = useColor();
     const { filmID } = route.params;
+    const { id } = fromGlobalId(filmID);
     const { data, error, loading } = useQuery(FILE_DETAIL_QUERY, {
         variables: {
-            filmId: filmID
+            filmId: id
         }
     });
 
@@ -41,9 +49,18 @@ const MovieDetails = ({route} : Props): JSX.Element => {
 
     const renderError = (): JSX.Element => {
         return (
-            <Text>
-                {error?.message}
-            </Text>
+            <NetworkErrorView error={error?.message ?? ""}/>
+        )
+    };
+
+    const renderTitleInfoLabel = (title: string, content: string) => {
+        return(
+            <TextLabel bold fontSize={15} numberOfLine={0} mb={8}>
+                {title + " "}
+                <TextLabel fontSize={14}>
+                    {content}
+                </TextLabel>
+            </TextLabel>
         )
     };
 
@@ -53,28 +70,24 @@ const MovieDetails = ({route} : Props): JSX.Element => {
 
         return (
             <>
-                <Text>
+                <TextLabel bold fontSize={20} numberOfLine={0} mb={10}>
                     {filmDetail.title}
-                </Text>
-                <Text>
-                    {`Release Date: ${filmDetail.releaseDate}`}
-                </Text>
-                <Text>
-                    {`Director: ${filmDetail.director}`}
-                </Text>
-                <Text>
-                    {`Producer: ${filmDetail.producers.join(",")}`}
-                </Text>
-                <Text>
+                </TextLabel>
+
+                {renderTitleInfoLabel(String.releaseData, filmDetail.releaseDate)}
+                {renderTitleInfoLabel(String.director, filmDetail.director)}
+                {renderTitleInfoLabel(String.producer, filmDetail.producers.join(","))}
+
+                <TextLabel mt={20} style={style.openingCrawl}>
                     {filmDetail.openingCrawl}
-                </Text>
+                </TextLabel>
             </>
         )
     };
 
     return (
-        <SafeAreaView style={style.container}>
-            <ScrollView style={style.container} contentContainerStyle={style.scrollContainer}>
+        <SafeAreaView style={getCommonStyle(Colours).safeArea}>
+            <ScrollView style={getCommonStyle(Colours).container} contentContainerStyle={style.scrollContainer}>
                 {
                     error ? renderError() : renderMovieDetail()
                 }
@@ -85,11 +98,11 @@ const MovieDetails = ({route} : Props): JSX.Element => {
 };
 
 const style = StyleSheet.create({
-    container: {
-        flex: 1
-    },
     scrollContainer: {
         padding: px(16)
+    },
+    openingCrawl: {
+        alignSelf: 'center'
     }
 });
 

@@ -1,7 +1,6 @@
 import React, {useMemo} from "react";
 import {
     View,
-    Text,
     StyleSheet,
     Pressable,
 } from "react-native"
@@ -18,8 +17,12 @@ import TextLabel from "../../components/atom/TextLabel";
 
 // Types
 import {Film} from "../../types/film";
-import {px, scaleFontSize} from "../../utils/ScreenUtil";
-import Font from "../../assets/fonts/Fonts";
+import {ColourType} from "../../theme/Colour";
+
+// Utils
+import {px} from "../../utils/ScreenUtil";
+import useColor from "../../hooks/useColorStyle";
+import String from "../../language/Strings";
 
 type Props = {
     data: Film,
@@ -31,6 +34,7 @@ type Props = {
 
 const MovieListItem = ({data, index, expanded, onClick, onDetailClick} : Props): JSX.Element => {
 
+    const { Colours } = useColor();
     const chipData: string[] = useMemo(() => {
         return (data?.speciesConnection?.species ?? []).map(item => item.name)
     }, [data.speciesConnection?.species ?? []]);
@@ -48,11 +52,11 @@ const MovieListItem = ({data, index, expanded, onClick, onDetailClick} : Props):
         return (
             <>
                 <GroupOfChip chips={chipData}/>
-                <Pressable style={style.detailButtonContainer} onPress={btnDetailClick}>
-                    <Text style={style.btnDetailTitle}>
-                        {"Detail"}
-                    </Text>
-                    <FontAwesomeIcon icon={ faChevronRight } color={"blue"} />
+                <Pressable style={style(Colours).detailButtonContainer} onPress={btnDetailClick}>
+                    <TextLabel color={Colours.purple} showUnderline underlineType={'underline'} mr={8} fontSize={18}>
+                        {String.detail}
+                    </TextLabel>
+                    <FontAwesomeIcon icon={ faChevronRight } color={Colours.purple} />
                 </Pressable>
             </>
         )
@@ -61,18 +65,18 @@ const MovieListItem = ({data, index, expanded, onClick, onDetailClick} : Props):
     const renderHeader = (): JSX.Element => {
         return (
             // @ts-ignore
-            <View style={style.headerContainer(expanded)}>
-                <TextLabel bold mr={10} style={{flex: 1}} fontSize={16} color={'gray'}>
+            <View style={style(Colours).headerContainer(expanded)}>
+                <TextLabel bold mr={10} style={{flex: 1}} fontSize={16} color={Colours.davysBlack}>
                     {data.title}
                 </TextLabel>
-                <FontAwesomeIcon icon={ expanded ? faChevronUp : faChevronDown } />
+                <FontAwesomeIcon icon={ expanded ? faChevronUp : faChevronDown } color={Colours.davysBlack} />
             </View>
         )
     };
 
     return (
         <Pressable onPress={onItemClick}>
-            <View style={style.container}>
+            <View style={style(Colours).container}>
                 {renderHeader()}
                 {
                     expanded ? renderExpandedContent() : null
@@ -82,28 +86,35 @@ const MovieListItem = ({data, index, expanded, onClick, onDetailClick} : Props):
     )
 };
 
-const style = StyleSheet.create({
-    container: {
-        paddingVertical: px(20),
-        paddingHorizontal: px(16),
-        borderBottomWidth: 1,
-        borderBottomColor: 'gray'
-    },
-    // @ts-ignore
-    headerContainer: (expanded: boolean) => ({
-        flexDirection: 'row',
-        marginBottom: px( expanded ? px(8) : 0)
-    }),
-    detailButtonContainer: {
-        alignSelf: "flex-end",
-        flexDirection: "row",
-        justifyContent:"center",
-        alignItems: 'center'
-    },
-    btnDetailTitle: {
-        fontSize: scaleFontSize(18),
-        marginRight: px(8),
-        color: "blue"
-    }
-});
+const style = (color: ColourType) => {
+    return (
+        StyleSheet.create({
+            container: {
+                paddingVertical: px(20),
+                paddingHorizontal: px(16),
+                marginVertical: px(10),
+                backgroundColor: color.white,
+                shadowOffset: {
+                    width: 0,
+                    height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 4,
+                elevation: 5,
+            },
+            // @ts-ignore
+            headerContainer: (expanded: boolean) => ({
+                flexDirection: 'row',
+                marginBottom: px( expanded ? px(8) : 0)
+            }),
+            detailButtonContainer: {
+                alignSelf: "flex-end",
+                flexDirection: "row",
+                justifyContent:"center",
+                alignItems: 'center',
+                marginTop: px(8)
+            }
+        })
+    )
+};
 export default MovieListItem;

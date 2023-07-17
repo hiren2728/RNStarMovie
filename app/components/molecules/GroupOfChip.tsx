@@ -3,6 +3,8 @@ import {
     View,
     StyleSheet
 } from "react-native"
+
+// Component
 import Chip from "../atom/Chip";
 
 type Props = {

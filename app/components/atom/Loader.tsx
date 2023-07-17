@@ -7,16 +7,20 @@ import {
 // Third Party
 import { SkypeIndicator } from "react-native-indicators"
 
+// Hook
+import useColor from "../../hooks/useColorStyle";
+
 type Props = {
     visible: boolean,
     size?: number
 }
 
 const Loader = ({visible, size = 40}: Props) => {
+    const { Colours } = useColor();
     if(visible)
         return (
             <View style={style.container}>
-                <SkypeIndicator size={size} color={"red"}/>
+                <SkypeIndicator size={size} color={Colours.purple}/>
             </View>
         );
     return null

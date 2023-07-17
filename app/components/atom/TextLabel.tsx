@@ -4,6 +4,7 @@ import {
 } from "react-native"
 import {px, scaleFontSize} from "../../utils/ScreenUtil";
 import Font from "../../assets/fonts/Fonts";
+import useColor from "../../hooks/useColorStyle";
 
 type Props = {
     fontSize?: number
@@ -37,7 +38,7 @@ const TextLabel = ({
                        medium = false,
                        light = false,
                        thin= false,
-                       color = 'black',
+                       color = undefined,
                        mt = null,
                        mb = null,
                        ml = null,
@@ -54,6 +55,7 @@ const TextLabel = ({
                        style
                    }: PropsWithChildren<Props>): JSX.Element => {
 
+    const { Colours } = useColor();
     const styleArray: TextStyle[] = [];
 
     if(lineHeight)
@@ -94,7 +96,7 @@ const TextLabel = ({
 
     styleArray.push({
         fontFamily,
-        color: color,
+        color: color ?? Colours.davysBlack,
         textAlign: align,
         fontSize: scaleFontSize(fontSize)
     });
