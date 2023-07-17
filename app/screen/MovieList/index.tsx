@@ -23,9 +23,11 @@ import type RootPropType from "../../navigation/NavigationStackProps"
 // Component
 import MovieListItem from "./MovieListItem";
 import Loader from "../../components/atom/Loader";
+import NetworkErrorView from "../../components/molecules/NetworkErrorView";
+
+// Utils
 import useColor from "../../hooks/useColorStyle";
 import getCommonStyle from "../../utils/CommonStyle";
-import NetworkErrorView from "../../components/molecules/NetworkErrorView";
 
 type Props = NativeStackScreenProps<RootPropType, Routes.MovieList>
 

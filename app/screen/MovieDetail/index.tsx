@@ -19,6 +19,8 @@ import {FILE_DETAIL_QUERY} from "../../api/graphQuery/FilmQuery"
 
 // Component
 import Loader from "../../components/atom/Loader";
+import TextLabel from "../../components/atom/TextLabel";
+import NetworkErrorView from "../../components/molecules/NetworkErrorView";
 
 // Types
 import RootPropType from "../../navigation/NavigationStackProps";
@@ -28,9 +30,8 @@ import {FilmDetail} from "../../types/film";
 import {px} from "../../utils/ScreenUtil";
 import useColor from "../../hooks/useColorStyle";
 import getCommonStyle from "../../utils/CommonStyle";
-import TextLabel from "../../components/atom/TextLabel";
 import String from "../../language/Strings";
-import NetworkErrorView from "../../components/molecules/NetworkErrorView";
+
 
 type Props = NativeStackScreenProps<RootPropType, Routes.MovieDetail>
 
