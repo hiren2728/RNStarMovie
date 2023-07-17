@@ -19,7 +19,7 @@ export const FILM_LIST_QUERY = gql`query Film {
 `;
 
 export const FILE_DETAIL_QUERY = gql`query FileDetail($filmId: ID) {
-  film(id: $filmId) {
+  film(filmID: $filmId) {
     producers
     created
     director
