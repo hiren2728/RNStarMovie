@@ -8,6 +8,7 @@ import {
 
 // Utils
 import {px, scaleFontSize} from "../../utils/ScreenUtil";
+import TextLabel from "./TextLabel";
 
 type Props = {
     title: string
@@ -16,9 +17,9 @@ type Props = {
 const Chip = ({title} : Props) => {
     return (
         <View style={style.container}>
-            <Text style={style.text}>
+            <TextLabel>
                 {title}
-            </Text>
+            </TextLabel>
         </View>
     )
 };
@@ -33,9 +34,6 @@ const style = StyleSheet.create({
         borderWidth: 1,
         borderColor: "gray",
         margin: px(4)
-    },
-    text: {
-        fontSize: scaleFontSize(10)
     }
 });
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 // Third Party
 import {NavigationContainer} from "@react-navigation/native"
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator, StackNavigationOptions} from '@react-navigation/stack';
 
 // Component
 import MovieList from "../screen/MovieList";
@@ -20,7 +20,7 @@ function RootNavigation() {
             <Stack.Navigator initialRouteName={Routes.MovieList}>
                 <Stack.Screen name={Routes.MovieList}
                               options={{
-                                  title: "Movies"
+                                  title: "Movies",
                               }}
                               component={MovieList}/>
                 <Stack.Screen name={Routes.MovieDetail}

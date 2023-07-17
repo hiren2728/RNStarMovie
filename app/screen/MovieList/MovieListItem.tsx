@@ -14,10 +14,12 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight
 
 // Component
 import GroupOfChip from "../../components/molecules/GroupOfChip";
+import TextLabel from "../../components/atom/TextLabel";
 
 // Types
 import {Film} from "../../types/film";
 import {px, scaleFontSize} from "../../utils/ScreenUtil";
+import Font from "../../assets/fonts/Fonts";
 
 type Props = {
     data: Film,
@@ -60,7 +62,9 @@ const MovieListItem = ({data, index, expanded, onClick, onDetailClick} : Props):
         return (
             // @ts-ignore
             <View style={style.headerContainer(expanded)}>
-                <Text style={style.title}>{data.title}</Text>
+                <TextLabel bold mr={10} style={{flex: 1}} fontSize={16} color={'gray'}>
+                    {data.title}
+                </TextLabel>
                 <FontAwesomeIcon icon={ expanded ? faChevronUp : faChevronDown } />
             </View>
         )
@@ -90,13 +94,6 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         marginBottom: px( expanded ? px(8) : 0)
     }),
-    title: {
-        fontSize: scaleFontSize(16),
-        fontWeight: 'bold',
-        color: 'gray',
-        flex: 1,
-        marginRight: px(10),
-    },
     detailButtonContainer: {
         alignSelf: "flex-end",
         flexDirection: "row",
