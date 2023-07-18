@@ -6,10 +6,10 @@ import {
 } from "react-native"
 
 // Third Party
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown'
-import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp'
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight'
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome'
+import {faChevronDown} from '@fortawesome/free-solid-svg-icons/faChevronDown'
+import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp'
+import {faChevronRight} from '@fortawesome/free-solid-svg-icons/faChevronRight'
 
 // Component
 import GroupOfChip from "../../components/molecules/GroupOfChip";
@@ -20,7 +20,6 @@ import {Film} from "../../types/film";
 import {ColourType} from "../../theme/Colour";
 
 // Utils
-import {px} from "../../utils/ScreenUtil";
 import useColor from "../../hooks/useColorStyle";
 import String from "../../language/Strings";
 
@@ -32,19 +31,19 @@ type Props = {
     onDetailClick: (data: Film) => void
 }
 
-const MovieListItem = ({data, index, expanded, onClick, onDetailClick} : Props): JSX.Element => {
+const MovieListItem = ({data, index, expanded, onClick, onDetailClick}: Props): JSX.Element => {
 
-    const { Colours } = useColor();
+    const {Colours} = useColor();
     const chipData: string[] = useMemo(() => {
         return (data?.speciesConnection?.species ?? []).map(item => item.name)
     }, [data.speciesConnection?.species ?? []]);
 
 
-    const onItemClick = () : void => {
+    const onItemClick = (): void => {
         onClick && onClick(index);
     };
 
-    const btnDetailClick = () : void => {
+    const btnDetailClick = (): void => {
         onDetailClick && onDetailClick(data)
     };
 
@@ -52,11 +51,11 @@ const MovieListItem = ({data, index, expanded, onClick, onDetailClick} : Props):
         return (
             <>
                 <GroupOfChip chips={chipData}/>
-                <Pressable style={style(Colours).detailButtonContainer} onPress={btnDetailClick}>
-                    <TextLabel color={Colours.purple} showUnderline underlineType={'underline'} mr={8} fontSize={18}>
+                <Pressable className={"flex-row self-end items-center justify-center mt-1"} onPress={btnDetailClick}>
+                    <TextLabel className={'text-lg mr-2 underline text-purple'}>
                         {String.detail}
                     </TextLabel>
-                    <FontAwesomeIcon icon={ faChevronRight } color={Colours.purple} />
+                    <FontAwesomeIcon icon={faChevronRight} color={Colours.purple}/>
                 </Pressable>
             </>
         )
@@ -64,19 +63,18 @@ const MovieListItem = ({data, index, expanded, onClick, onDetailClick} : Props):
 
     const renderHeader = (): JSX.Element => {
         return (
-            // @ts-ignore
-            <View style={style(Colours).headerContainer(expanded)}>
-                <TextLabel bold mr={10} style={{flex: 1}} fontSize={16} color={Colours.davysBlack}>
+            <View className={`flex-row ${expanded ? 'mb-1' : 'mb-0'}`}>
+                <TextLabel className={`flex-1 mr-2.5 text-base mr-2.5`} bold>
                     {data.title}
                 </TextLabel>
-                <FontAwesomeIcon icon={ expanded ? faChevronUp : faChevronDown } color={Colours.davysBlack} />
+                <FontAwesomeIcon icon={expanded ? faChevronUp : faChevronDown} color={Colours.davysBlack}/>
             </View>
         )
     };
 
     return (
         <Pressable onPress={onItemClick}>
-            <View style={style(Colours).container}>
+            <View style={style(Colours).container} className={"py-5 px-4 my-2.5 shadow"}>
                 {renderHeader()}
                 {
                     expanded ? renderExpandedContent() : null
@@ -90,29 +88,7 @@ const style = (color: ColourType) => {
     return (
         StyleSheet.create({
             container: {
-                paddingVertical: px(20),
-                paddingHorizontal: px(16),
-                marginVertical: px(10),
-                backgroundColor: color.white,
-                shadowOffset: {
-                    width: 0,
-                    height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 4,
-                elevation: 5,
-            },
-            // @ts-ignore
-            headerContainer: (expanded: boolean) => ({
-                flexDirection: 'row',
-                marginBottom: px( expanded ? px(8) : 0)
-            }),
-            detailButtonContainer: {
-                alignSelf: "flex-end",
-                flexDirection: "row",
-                justifyContent:"center",
-                alignItems: 'center',
-                marginTop: px(8)
+                backgroundColor: color.white
             }
         })
     )

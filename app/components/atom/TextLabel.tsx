@@ -2,109 +2,57 @@ import React, {PropsWithChildren} from "react";
 import {
     Text, TextStyle
 } from "react-native"
-import {px, scaleFontSize} from "../../utils/ScreenUtil";
-import Font from "../../assets/fonts/Fonts";
-import useColor from "../../hooks/useColorStyle";
 
 type Props = {
-    fontSize?: number
     bold?: boolean,
     medium?: boolean,
     light?: boolean,
     thin?: boolean,
-    color?: string,
-    mt?: number | null,
-    mb?: number | null,
-    ml?: number | null,
-    mr?: number | null,
-    mh?: number | null,
-    mv?: number | null,
-    align?: 'auto' | 'left' | 'right' | 'center' | 'justify' | undefined,
     lineHeight?: number | null,
     numberOfLine?: number,
     textProps?: object,
-    showUnderline?: boolean,
-    underlineType?: | 'none'
-        | 'underline'
-        | 'line-through'
-        | 'underline line-through'
-        | undefined,
-    style?: TextStyle
+    style?: TextStyle,
+    className?: string
 }
 
 const TextLabel = ({
-                       fontSize = 12,
                        bold = false,
                        medium = false,
                        light = false,
-                       thin= false,
-                       color = undefined,
-                       mt = null,
-                       mb = null,
-                       ml = null,
-                       mr = null,
-                       mh = null,
-                       mv = null,
-                       lineHeight= null,
-                       align = "left",
+                       thin = false,
+                       lineHeight = null,
                        numberOfLine = undefined,
                        textProps = {},
-                       showUnderline = false,
-                       underlineType = "none",
                        children,
-                       style
+                       style,
+                       className
                    }: PropsWithChildren<Props>): JSX.Element => {
 
-    const { Colours } = useColor();
     const styleArray: TextStyle[] = [];
+    const styleString: string[] = [
+        "text-davysBlack"
+    ];
 
-    if(lineHeight)
-        styleArray.push({
-            lineHeight: scaleFontSize(lineHeight)
-        });
+    if (lineHeight) {
+        styleString.push(`leading-${Math.round(lineHeight / 4)}`)
+    }
 
-    let fontFamily;
-
-    if(bold)
-        fontFamily = Font.BOLD;
-    else if(medium)
-        fontFamily = Font.REGULAR;
-    else if(light)
-        fontFamily = Font.LIGHT;
-    else if(thin)
-        fontFamily = Font.THIN;
-    else
-        fontFamily = Font.REGULAR;
-
-    if (mt)
-        styleArray.push({ marginTop: px(mt) });
-    if (mb)
-        styleArray.push({ marginBottom: px(mb) });
-    if (ml)
-        styleArray.push({ marginLeft: px(ml) });
-    if (mr)
-        styleArray.push({ marginRight: px(mr) });
-    if (mv)
-        styleArray.push({ marginVertical: px(mv) });
-    if (mh)
-        styleArray.push({ marginHorizontal: px(mh) });
-
-    if(showUnderline)
-        styleArray.push({
-            textDecorationLine: underlineType
-        });
-
-    styleArray.push({
-        fontFamily,
-        color: color ?? Colours.davysBlack,
-        textAlign: align,
-        fontSize: scaleFontSize(fontSize)
-    });
+    if (bold) {
+        styleString.push("font-customBold")
+    } else if (medium) {
+        styleString.push("font-customMedium")
+    } else if (light) {
+        styleString.push("font-customLight")
+    } else if (thin) {
+        styleString.push("font-customThin")
+    } else {
+        styleString.push("font-customRegular")
+    }
 
     style && styleArray.push(style);
 
     return (
-        <Text numberOfLines={numberOfLine} style={styleArray}>
+        <Text numberOfLines={numberOfLine} style={styleArray} className={`${styleString.join(" ")} ${className ?? ""}`}>
             {children}
         </Text>
     )

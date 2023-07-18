@@ -4,7 +4,7 @@ import {
     SafeAreaView,
     FlatList,
     UIManager,
-    Platform,
+    Platform
 } from "react-native"
 
 // Third Party
@@ -25,9 +25,6 @@ import MovieListItem from "./MovieListItem";
 import Loader from "../../components/atom/Loader";
 import NetworkErrorView from "../../components/molecules/NetworkErrorView";
 
-// Utils
-import useColor from "../../hooks/useColorStyle";
-import getCommonStyle from "../../utils/CommonStyle";
 
 type Props = NativeStackScreenProps<RootPropType, Routes.MovieList>
 
@@ -37,14 +34,12 @@ if(Platform.OS === 'android') {
 
 const MovieList = ({navigation}: Props): JSX.Element => {
 
-    const { Colours } = useColor();
     const [expandedIndex, setExpanded] = useState<number>(-1);
 
     const {data, error, loading} = useQuery(FILM_LIST_QUERY);
     const films: Film[] = _.get(data, "allFilms.films", []);
 
     const onListItemClick = (index: number): void => {
-        // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         setExpanded(prevState => index === prevState ? -1 : index)
     };
 
@@ -79,8 +74,8 @@ const MovieList = ({navigation}: Props): JSX.Element => {
     };
 
     return (
-        <SafeAreaView style={getCommonStyle(Colours).safeArea}>
-            <View style={getCommonStyle(Colours).container}>
+        <SafeAreaView className={'flex-1 bg-white'}>
+            <View className={'flex-1 bg-white'}>
                 {error ? renderError() : renderFilmList()}
             </View>
             <Loader visible={loading}/>

@@ -2,7 +2,6 @@ import React from "react";
 import {
     SafeAreaView,
     StyleSheet,
-    Text,
     ScrollView
 } from "react-native";
 
@@ -28,8 +27,6 @@ import {FilmDetail} from "../../types/film";
 
 // Utils
 import {px} from "../../utils/ScreenUtil";
-import useColor from "../../hooks/useColorStyle";
-import getCommonStyle from "../../utils/CommonStyle";
 import String from "../../language/Strings";
 
 
@@ -37,7 +34,6 @@ type Props = NativeStackScreenProps<RootPropType, Routes.MovieDetail>
 
 const MovieDetails = ({route} : Props): JSX.Element => {
 
-    const { Colours } = useColor();
     const { filmID } = route.params;
     const { id } = fromGlobalId(filmID);
     const { data, error, loading } = useQuery(FILE_DETAIL_QUERY, {
@@ -56,9 +52,9 @@ const MovieDetails = ({route} : Props): JSX.Element => {
 
     const renderTitleInfoLabel = (title: string, content: string) => {
         return(
-            <TextLabel bold fontSize={15} numberOfLine={0} mb={8}>
+            <TextLabel bold numberOfLine={0} className={`mb-2 text-base`}>
                 {title + " "}
-                <TextLabel fontSize={14}>
+                <TextLabel className={'text-sm'}>
                     {content}
                 </TextLabel>
             </TextLabel>
@@ -71,7 +67,7 @@ const MovieDetails = ({route} : Props): JSX.Element => {
 
         return (
             <>
-                <TextLabel bold fontSize={20} numberOfLine={0} mb={10}>
+                <TextLabel bold numberOfLine={0} className={'mb-2.5 text-xl'}>
                     {filmDetail.title}
                 </TextLabel>
 
@@ -79,7 +75,7 @@ const MovieDetails = ({route} : Props): JSX.Element => {
                 {renderTitleInfoLabel(String.director, filmDetail.director)}
                 {renderTitleInfoLabel(String.producer, filmDetail.producers.join(","))}
 
-                <TextLabel mt={20} style={style.openingCrawl}>
+                <TextLabel className={'mt-5 text-center text-sm'}>
                     {filmDetail.openingCrawl}
                 </TextLabel>
             </>
@@ -87,8 +83,8 @@ const MovieDetails = ({route} : Props): JSX.Element => {
     };
 
     return (
-        <SafeAreaView style={getCommonStyle(Colours).safeArea}>
-            <ScrollView style={getCommonStyle(Colours).container} contentContainerStyle={style.scrollContainer}>
+        <SafeAreaView  className={'flex-1 bg-white'}>
+            <ScrollView  className={'flex-1 bg-white'} contentContainerStyle={style.scrollContainer}>
                 {
                     error ? renderError() : renderMovieDetail()
                 }
@@ -102,9 +98,6 @@ const style = StyleSheet.create({
     scrollContainer: {
         padding: px(16)
     },
-    openingCrawl: {
-        alignSelf: 'center'
-    }
 });
 
 export default MovieDetails;

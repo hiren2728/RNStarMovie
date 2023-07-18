@@ -1,7 +1,6 @@
 import React from "react";
 import {
-    View,
-    StyleSheet
+    View
 } from "react-native";
 
 // Third Party
@@ -19,7 +18,7 @@ const Loader = ({visible, size = 40}: Props) => {
     const { Colours } = useColor();
     if(visible)
         return (
-            <View style={style.container}>
+            <View className={'absolute top-0 bottom-0 left-0 right-0 z-1000'}>
                 <SkypeIndicator size={size} color={Colours.purple}/>
             </View>
         );
@@ -28,15 +27,3 @@ const Loader = ({visible, size = 40}: Props) => {
 
 export default Loader
 
-const style = StyleSheet.create({
-    container: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 1000,
-    }
-});

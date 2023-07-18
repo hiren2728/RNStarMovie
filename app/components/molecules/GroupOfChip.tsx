@@ -1,7 +1,6 @@
 import React from "react"
 import {
-    View,
-    StyleSheet
+    View
 } from "react-native"
 
 // Component
@@ -13,20 +12,12 @@ type Props = {
 
 const GroupOfChip = ({chips} : Props) => {
     return (
-        <View style={style.container}>
+        <View className={`flex-row flex-wrap items-baseline`}>
             {
                 chips.map((item, index) => <Chip title={item} key={`chip_${index}`}/>)
             }
         </View>
     )
 };
-
-const style = StyleSheet.create({
-    container: {
-        alignItems: 'baseline',
-        flexDirection: "row",
-        flexWrap: 'wrap'
-    }
-});
 
 export default React.memo(GroupOfChip)
