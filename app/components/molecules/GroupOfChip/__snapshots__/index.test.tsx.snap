@@ -1,0 +1,152 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GroupOfChips renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+      },
+      {
+        "flexWrap": "wrap",
+      },
+      {
+        "alignItems": "baseline",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      [
+        {
+          "height": 28,
+        },
+        {
+          "paddingLeft": 10,
+          "paddingRight": 10,
+        },
+        {
+          "justifyContent": "center",
+        },
+        {
+          "marginBottom": 4,
+          "marginLeft": 4,
+          "marginRight": 4,
+          "marginTop": 4,
+        },
+        {
+          "borderBottomWidth": 1,
+          "borderLeftWidth": 1,
+          "borderRightWidth": 1,
+          "borderTopWidth": 1,
+        },
+        {
+          "borderBottomLeftRadius": 9999,
+          "borderBottomRightRadius": 9999,
+          "borderTopLeftRadius": 9999,
+          "borderTopRightRadius": 9999,
+        },
+        {
+          "borderBottomColor": "#A29CF5",
+          "borderLeftColor": "#A29CF5",
+          "borderRightColor": "#A29CF5",
+          "borderTopColor": "#A29CF5",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "color": "#5C5A5B",
+          },
+          {
+            "fontFamily": "RobotoMono-Bold",
+          },
+          [
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              {
+                "color": "#A29CF5",
+              },
+            ],
+          ],
+        ]
+      }
+    >
+      Hiren
+    </Text>
+  </View>
+  <View
+    style={
+      [
+        {
+          "height": 28,
+        },
+        {
+          "paddingLeft": 10,
+          "paddingRight": 10,
+        },
+        {
+          "justifyContent": "center",
+        },
+        {
+          "marginBottom": 4,
+          "marginLeft": 4,
+          "marginRight": 4,
+          "marginTop": 4,
+        },
+        {
+          "borderBottomWidth": 1,
+          "borderLeftWidth": 1,
+          "borderRightWidth": 1,
+          "borderTopWidth": 1,
+        },
+        {
+          "borderBottomLeftRadius": 9999,
+          "borderBottomRightRadius": 9999,
+          "borderTopLeftRadius": 9999,
+          "borderTopRightRadius": 9999,
+        },
+        {
+          "borderBottomColor": "#A29CF5",
+          "borderLeftColor": "#A29CF5",
+          "borderRightColor": "#A29CF5",
+          "borderTopColor": "#A29CF5",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "color": "#5C5A5B",
+          },
+          {
+            "fontFamily": "RobotoMono-Bold",
+          },
+          [
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              {
+                "color": "#A29CF5",
+              },
+            ],
+          ],
+        ]
+      }
+    >
+      Work
+    </Text>
+  </View>
+</View>
+`;

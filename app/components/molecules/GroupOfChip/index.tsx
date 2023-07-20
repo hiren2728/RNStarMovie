@@ -4,7 +4,7 @@ import {
 } from "react-native"
 
 // Component
-import Chip from "../atom/Chip";
+import Chip from "../../atom/Chip";
 
 type Props = {
     chips: string[]

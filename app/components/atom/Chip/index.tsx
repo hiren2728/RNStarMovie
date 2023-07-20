@@ -5,7 +5,7 @@ import {
 } from "react-native"
 
 // Component
-import TextLabel from "./TextLabel";
+import TextLabel from "../TextLabel";
 
 type Props = {
     title: string
